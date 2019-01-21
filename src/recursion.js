@@ -150,7 +150,15 @@ var modulo = function(x, y) {
 // 12. Write a function that multiplies two numbers without using the * operator or
 // Math methods.
 var multiply = function(x, y) {
+  // if (x === 0 || y === 0){
+  //   return 0;
+  // } else if ( x === 1 ){
+  //   return y;
+  // } else {
+  //   return y + multiply(x-1, y);
+  // }
 };
+
 
 // 13. Write a function that divides two numbers without using the / operator or
 // Math methods to arrive at an approximate quotient (ignore decimal endings).
@@ -163,6 +171,16 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
+  if (x < 0 || y < 0){
+    return null;
+  }
+  if (x === 0){
+    return y;
+  } else if (y === 0){
+    return x;
+  } else {
+    return gcd(y, x%y);
+  }
 };
 
 // 15. Write a function that compares each character of two strings and returns true if
@@ -262,11 +280,29 @@ var capitalizeFirst = function(array) {
 // };
 // nestedEvenSum(obj1); // 10
 var nestedEvenSum = function(obj) {
+  var total = 0;
+  for (var key in obj){
+    if (typeof obj[key] === 'object'){
+      total += nestedEvenSum(obj[key]);
+    } else if (obj[key] % 2 === 0){
+      total += obj[key];
+    }
+  }
+  return total;
 };
 
 // 30. Flatten an array containing nested arrays.
 // flatten([1,[2],[3,[[4]]],5]); // [1,2,3,4,5]
 var flatten = function(array) {
+  var result = [];
+  for (let i = 0; i < array.length; i++){
+    if (Array.isArray(array[i])){
+      result = result.concat(flatten(array[i]));
+    } else {
+      result.push(array[i]);
+    }
+  }
+  return result;
 };
 
 // 31. Given a string, return an object containing tallies of each letter.
